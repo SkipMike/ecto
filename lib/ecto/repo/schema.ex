@@ -306,7 +306,7 @@ defmodule Ecto.Repo.Schema do
                do: {:update, autogen},
                else: {:noop, []}
 
-          case apply(changeset, adapter, action, args) do
+                 case apply(changeset, adapter, action, args) do
             {:ok, values} ->
               changeset
               |> load_changes(:loaded, return_types, values, embeds, autogen, adapter, schema_meta)

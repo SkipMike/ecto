@@ -43,6 +43,7 @@ defmodule Ecto.Adapters.PostgresTest do
       field :list1, {:array, :string}
       field :list2, {:array, :integer}
       field :binary, :binary
+      field :number, :integer
     end
   end
 

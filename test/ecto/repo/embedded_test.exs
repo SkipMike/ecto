@@ -1,5 +1,5 @@
 defmodule Ecto.Repo.EmbeddedTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   alias Ecto.TestRepo, as: TestRepo
 
@@ -9,6 +9,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     @primary_key false
     embedded_schema do
       field :y, :string
+      field :z, :integer
     end
   end
 
@@ -163,6 +164,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     assert schema.embeds == [embed]
   end
 
+  @tag :poop
   test "inserting embeds on update" do
     changeset =
       %MySchema{id: 1}
@@ -185,6 +187,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     assert embed.updated_at
   end
 
+  @tag :poop
   test "replacing embeds on update" do
     embed = %MyEmbed{x: "xyz", id: @uuid}
 
@@ -224,6 +227,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     end
   end
 
+  @tag :poop
   test "changing embeds on update" do
     sample = %MyEmbed{x: "xyz", id: @uuid}
     sample_changeset = Ecto.Changeset.change(sample, x: "abc")
@@ -251,6 +255,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     assert embed.updated_at
   end
 
+  @tag :poop
   test "empty changeset on update" do
     embed = %MyEmbed{x: "xyz", id: @uuid}
     no_changes = Ecto.Changeset.change(embed)
@@ -305,6 +310,7 @@ defmodule Ecto.Repo.EmbeddedTest do
     refute changeset.valid?
   end
 
+  @tag :pooper
   test "handles nested embeds on update" do
     embed = %MyEmbed{id: @uuid, x: "xyz"}
     embed_changeset =

@@ -213,9 +213,11 @@ if Code.ensure_loaded?(Postgrex) do
     end
 
     def update(prefix, table, fields, filters, returning) do
+      IO.inspect({prefix, table, fields, filters, returning}, label: "postgres update")
       {fields, count} = intersperse_reduce(fields, ", ", 1, fn field, acc ->
         {[quote_name(field), " = $" | Integer.to_string(acc)], acc + 1}
       end)
+      |> IO.inspect(label: "intersperse_reduce")
 
       {filters, _count} = intersperse_reduce(filters, " AND ", count, fn
         {field, nil}, acc ->
@@ -227,6 +229,7 @@ if Code.ensure_loaded?(Postgrex) do
 
       ["UPDATE ", quote_table(prefix, table), " SET ",
        fields, " WHERE ", filters | returning(returning)]
+       |> IO.inspect(label: "end update")
     end
 
     def delete(prefix, table, filters, returning) do
